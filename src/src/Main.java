@@ -36,5 +36,12 @@ public class Main {
         int mutation = 100 - selection;
         //print it's good
         System.out.println("It's good" + " Selection: " + selection + " Mutation: " + mutation);
+        int randomSelection = random.nextInt(100)+1;
+        if (randomSelection <= selection) {
+            System.out.println("Selection");
+        } else {
+            System.out.println("Mutation");
+        }
+
     }
 }
