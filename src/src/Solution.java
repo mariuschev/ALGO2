@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Solution {
     private int decimal;
@@ -38,6 +40,10 @@ public class Solution {
             binary = (decimal % 2) + binary;
             decimal /= 2;
         }
+        //if decimal is 0 then binary is 00000000
+        if (binary.length() == 0) {
+            binary = "00000000";
+        }
         while (binary.length() < 8) {
             binary = "0" + binary;
         }
@@ -56,9 +62,19 @@ public class Solution {
         return decimal;
     }
     public ArrayList<Solution> refresh(ArrayList<Solution> solutions, Solution solution) {
-        solutions.add(solution);
-        solutions.sort((s1, s2) -> s1.getFitnescore() - s2.getFitnescore());
-        solutions.remove(solutions.size() - 1);
+        //if solution decimal is not already in the list then add it or replace it
+        boolean found = false;
+        for (int i = 0; i < solutions.size(); i++) {
+            if (solutions.get(i).getDecimal() == solution.getDecimal()) {
+                found = true;
+            }
+        }
+        if (!found) {
+            solutions.add(solution);
+            solutions.sort((o1, o2) -> Integer.compare(Math.abs(o1.getFitnescore()), Math.abs(o2.getFitnescore())));
+            solutions.remove(solutions.size() - 1);
+        }
+
         return solutions;
     }
     //method to calculate the equation (x+3)²-25=0 and assign the result to the variable equationn
@@ -67,7 +83,6 @@ public class Solution {
     }
     public Solution Selection(ArrayList<Solution> select){
         Solution sol1;
-        select.sort((s1, s2) -> s1.fitnescore - s2.fitnescore);
         sol1= select.get(cpt);
         return sol1;
     }
@@ -85,15 +100,33 @@ public class Solution {
         String binary = binary2.substring(0, crossoverPoint) + binary1.substring(crossoverPoint);
         solution.setBinary(binary);
         solution.setDecimal(solution.binaryToDecimal(binary));
-        solution.fitnessFunction(solution.getFitnescore());
-        System.out.println("Crossover point: " + crossoverPoint);
-        System.out.println(solution.toString());
+        solution.fitnessFunction(solution.getDecimal());
         return solution;
     }
+    public Solution Mutation(Solution solutions2){
+        Solution solution = new Solution();
+        //duplique the solution
+        solution.setBinary(solutions2.getBinary());
+        solution.setDecimal(solutions2.getDecimal());
+        solution.fitnessFunction(solution.getDecimal());
+        //print solution
+        System.out.println("Solution before mutation: " + solution.toString());
+        Random random = new Random();
+        //choose a random iteration between 0 inclued and 8 exclued
+        int randomIteration = random.nextInt(8);
+        System.out.println("Random iteration: " + randomIteration);
+        char[] charArray = solution.getBinary().toCharArray();
+        if(charArray[randomIteration]=='1'){
+            charArray[randomIteration]=(char)('0');
+        }else{
+            charArray[randomIteration]=(char)('1');
+        }
+        String modifiedString=new String(charArray);
+        solution.setBinary(modifiedString);
+        solution.setDecimal(solution.binaryToDecimal(modifiedString));
+        solution.fitnessFunction(solution.getDecimal());
+        System.out.println("Solution after mutation: " + solution.toString());
+        return solution;
 
-
-
-
-
-
+    }
 }
