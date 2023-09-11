@@ -44,7 +44,19 @@ public class Main {
         }
 
         //test
-        System.out.println(solutions.get(0).toString());
+        //System.out.println(solutions.get(0).toString());
+        System.out.println("Test :");
 
+        ArrayList<Solution> solutions1 = new ArrayList<Solution>();
+        Solution solu1 =new Solution();
+        solu1.cpt = 0;
+        for(int i=0;i<2;i++){
+            solutions1.add(solu1.Selection(solutions));
+            solu1.cpt++;
+        }
+
+        for (Solution solution : solutions1) {
+            System.out.println(solution.toString());
+        }
     }
 }

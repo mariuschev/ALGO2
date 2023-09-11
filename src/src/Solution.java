@@ -4,6 +4,7 @@ public class Solution {
     private int decimal;
     private String binary;
     private int fitnescore;
+    public static int cpt;
     //constructor with no arguments
     public Solution() {
         this.decimal = 0;
@@ -57,6 +58,12 @@ public class Solution {
     //method to calculate the equation (x+3)²-25=0 and assign the result to the variable equation
     public void fitnessFunction(int decimal) {
         fitnescore = (decimal + 3) * (decimal + 3) - 25;
+    }
+    public Solution Selection(ArrayList<Solution> select){
+        Solution sol1;
+        select.sort((s1, s2) -> s1.fitnescore - s2.fitnescore);
+        sol1= select.get(cpt);
+        return sol1;
     }
     //method to print the solution
     @Override
