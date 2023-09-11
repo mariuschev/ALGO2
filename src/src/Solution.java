@@ -61,7 +61,7 @@ public class Solution {
         solutions.remove(solutions.size() - 1);
         return solutions;
     }
-    //method to calculate the equation (x+3)²-25=0 and assign the result to the variable equation
+    //method to calculate the equation (x+3)²-25=0 and assign the result to the variable equationn
     public void fitnessFunction(int decimal) {
         fitnescore = (decimal + 3) * (decimal + 3) - 25;
     }

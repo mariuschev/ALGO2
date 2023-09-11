@@ -20,7 +20,7 @@ public class Main {
             solutions.add(solution);
         }
         //sort the list of Solution by ascending order of the equation
-        solutions.sort((s1, s2) -> s1.getFitnescore() - s2.getFitnescore());
+        solutions.sort((s1, s2) -> s1.getFitnescore() - s2.getFitnescore()); //lambda expression
         //print the list of Solution
         for (Solution solution : solutions) {
             System.out.println(solution.toString());
