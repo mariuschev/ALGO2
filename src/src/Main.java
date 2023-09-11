@@ -35,27 +35,28 @@ public class Main {
         }
         int mutation = 100 - selection;
         //print it's good
-        System.out.println("It's good" + " Selection: " + selection + " Mutation: " + mutation);
-        //while solutions.get(0).getEquation() != 0 au au bout de 100 tentatives
-
+        System.out.println("It's good\n" + "CrossOver: " + selection + " Mutation: " + mutation);
         int randomSelection = random.nextInt(100)+1;
         if (randomSelection <= selection) {
-            System.out.println("Selection");
+            System.out.println("CrossOver");
         } else {
             System.out.println("Mutation");
         }
 
         //test
-        System.out.println(solutions.get(0).toString());
-        System.out.println(solutions.get(1).toString());
-        //use the refresh method to refresh the list of Solution with the crossover of the two best Solution
-        solutions = solutions.get(0).refresh(solutions, solutions.get(0).crossover(solutions.get(0), solutions.get(1)));
+        //System.out.println(solutions.get(0).toString());
+        System.out.println("Test :");
 
-
-        //imprimer la liste
-        for (Solution solution : solutions) {
-            System.out.println(solution.toString());
+        ArrayList<Solution> solutions1 = new ArrayList<Solution>();
+        Solution solu1 =new Solution();
+        solu1.cpt = 0;
+        for(int i=0;i<2;i++){
+            solutions1.add(solu1.Selection(solutions));
+            solu1.cpt++;
         }
 
+        for (Solution solution : solutions1) {
+            System.out.println(solution.toString());
+        }
     }
 }
