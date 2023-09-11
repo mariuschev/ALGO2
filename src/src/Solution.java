@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 public class Solution {
-    int decimal;
-    String binary;
-    private int equation = 0;
+    private int decimal;
+    private String binary;
+    private int fitnescore;
     //constructor with no arguments
     public Solution() {
         this.decimal = 0;
@@ -24,6 +26,9 @@ public class Solution {
     }
     public void setBinary(String binary) {
         this.binary = binary;
+    }
+    public int getFitnescore() {
+        return fitnescore;
     }
     //method to convert decimal to binary on 8 bits
     public String decimalToBinary(int decimal) {
@@ -50,16 +55,13 @@ public class Solution {
         return decimal;
     }
     //method to calculate the equation (x+3)²-25=0 and assign the result to the variable equation
-    public void calculateEquation(int decimal) {
-        equation = (decimal + 3) * (decimal + 3) - 25;
-    }
-    //getters of equation
-    public int getEquation() {
-        return equation;
+    public void fitnessFunction(int decimal) {
+        fitnescore = (decimal + 3) * (decimal + 3) - 25;
     }
     //method to print the solution
-    public void printSolution() {
-        System.out.println("Decimal: " + decimal + " Binary: " + binary + " Equation: " + equation);
+    @Override
+    public String toString() {
+        return "Decimal: " + this.decimal + " Binary: " + this.binary + " Fitness level: " + this.fitnescore;
     }
 
 }

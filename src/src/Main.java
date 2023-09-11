@@ -16,14 +16,14 @@ public class Main {
             int decimal = random.nextInt(255) + 1;
             Solution solution = new Solution(decimal,"");
             solution.setBinary(solution.decimalToBinary(decimal));
-            solution.calculateEquation(solution.decimal);
+            solution.fitnessFunction(solution.getDecimal());
             solutions.add(solution);
         }
         //sort the list of Solution by ascending order of the equation
-        solutions.sort((s1, s2) -> s1.getEquation() - s2.getEquation());
+        solutions.sort((s1, s2) -> s1.getFitnescore() - s2.getFitnescore());
         //print the list of Solution
         for (Solution solution : solutions) {
-            solution.printSolution();
+            System.out.println(solution.toString());
         }
         //Ask for a pourcentage of selection to the user thanks to the scanner (all input are between 0 and 100) and selection and mutation must be équal to 100
         System.out.println("Enter a pourcentage of selection: ");
@@ -42,6 +42,9 @@ public class Main {
         } else {
             System.out.println("Mutation");
         }
+
+        //test
+        System.out.println(solutions.get(0).toString());
 
     }
 }
