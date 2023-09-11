@@ -54,6 +54,12 @@ public class Solution {
         }
         return decimal;
     }
+    public ArrayList<Solution> refresh(ArrayList<Solution> solutions, Solution solution) {
+        solutions.add(solution);
+        solutions.sort((s1, s2) -> s1.getFitnescore() - s2.getFitnescore());
+        solutions.remove(solutions.size() - 1);
+        return solutions;
+    }
     //method to calculate the equation (x+3)²-25=0 and assign the result to the variable equation
     public void fitnessFunction(int decimal) {
         fitnescore = (decimal + 3) * (decimal + 3) - 25;
@@ -63,5 +69,24 @@ public class Solution {
     public String toString() {
         return "Decimal: " + this.decimal + " Binary: " + this.binary + " Fitness level: " + this.fitnescore;
     }
+    //method to make the crossover between two binary solutions choosing a crossover point randomly
+    public Solution crossover(Solution solution1, Solution solution2) {
+        Solution solution = new Solution();
+        int crossoverPoint = (int) (Math.random() * 8);
+        String binary1 = solution1.getBinary();
+        String binary2 = solution2.getBinary();
+        String binary = binary2.substring(0, crossoverPoint) + binary1.substring(crossoverPoint);
+        solution.setBinary(binary);
+        solution.setDecimal(solution.binaryToDecimal(binary));
+        solution.fitnessFunction(solution.getFitnescore());
+        System.out.println("Crossover point: " + crossoverPoint);
+        System.out.println(solution.toString());
+        return solution;
+    }
+
+
+
+
+
 
 }
