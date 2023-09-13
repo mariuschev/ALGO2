@@ -109,12 +109,9 @@ public class Solution {
         solution.setBinary(solutions2.getBinary());
         solution.setDecimal(solutions2.getDecimal());
         solution.fitnessFunction(solution.getDecimal());
-        //print solution
-        System.out.println("Solution before mutation: " + solution.toString());
         Random random = new Random();
         //choose a random iteration between 0 inclued and 8 exclued
         int randomIteration = random.nextInt(8);
-        System.out.println("Random iteration: " + randomIteration);
         char[] charArray = solution.getBinary().toCharArray();
         if(charArray[randomIteration]=='1'){
             charArray[randomIteration]=(char)('0');
@@ -125,7 +122,6 @@ public class Solution {
         solution.setBinary(modifiedString);
         solution.setDecimal(solution.binaryToDecimal(modifiedString));
         solution.fitnessFunction(solution.getDecimal());
-        System.out.println("Solution after mutation: " + solution.toString());
         return solution;
 
     }
