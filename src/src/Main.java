@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -27,14 +28,24 @@ public class Main {
             System.out.println();
 
             Scanner sc1 = new Scanner(System.in);
-            System.out.println("Select the option : ");
-            int menu = sc1.nextInt();
-            while (menu < 1 || menu > 4) {
-                System.out.println("Out of range");
-                System.out.println("Select the option (between 1 and 4): ");
-                menu = sc1.nextInt();
+            int menu=0;
+            while (true) { //We do a loop to make sure that we have the right entry
+                try {
+                    System.out.println("Select the option : ");
+                    menu = sc1.nextInt();
+
+                    if (menu >= 1 && menu <= 4) {
+                        break;
+                    } else {
+                        System.out.println("Error: You must enter a number between 1 and 4");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Error: You must enter a valid number between 1 and 4");
+                    sc1.nextLine();
+                }
             }
-            System.out.println();
+
+
 
             switch (menu) {
                 case 1:
@@ -326,7 +337,9 @@ public class Main {
                     System.out.println("Bye !");
                     continu = true;
                     break;
+
             }
+
 
         }
     }
