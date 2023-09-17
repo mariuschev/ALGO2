@@ -334,23 +334,31 @@ public class Main {
                     Scanner scanner3 = new Scanner(System.in);
                     int population3 = scanner3.nextInt();
                     Random random3 = new Random();
-                    while (population3 < 2) {
+                    while (population3 < 2 || population3 > 10) {
                         System.out.println("Out of border.");
-                        System.out.println("Enter a number of population (greater than 1): ");
+                        System.out.println("Enter a number of population (between 2 and 10): ");
                         population3 = scanner3.nextInt();
                     }
                     //ask the user to enter each decimal number
                     System.out.println("Enter each decimal number: ");
                     ArrayList<Solution> solutions3 = new ArrayList<>();
                     for (int i = 0; i < population3; i++) {
-                        System.out.println("Enter the decimal number " + (i + 1) + " : ");
+                        System.out.println("Enter the decimal number " + (i + 1) + " (between 0 and 255)" + " : ");
                         int decimal = scanner3.nextInt();
-                        for (Solution solution : solutions3) {
-                            while (solution.getDecimal() == decimal) {
+                        int j = 0;
+                        while(j!=i){
+                            while(decimal < 0 || decimal > 255){
+                                System.out.println("Out of border.");
+                                System.out.println("Enter a decimal number between 0 and 255 : ");
+                                decimal = scanner3.nextInt();
+                            }
+                            while (solutions3.get(j).getDecimal() == decimal) {
                                 System.out.println("Error: This decimal number is already in the list.");
                                 System.out.println("Enter the decimal number " + (i + 1) + " : ");
                                 decimal = scanner3.nextInt();
+                                j = 0;
                             }
+                            j++;
                         }
                         Solution solution = new Solution(decimal, "");
                         solution.setBinary(solution.decimalToBinary(decimal));
@@ -370,7 +378,7 @@ public class Main {
                     while (tries3 < 2 || tries3 > 1000) {
                         System.out.println("Error: The number of tries must be between 2 and 1000) :");
                         System.out.println("Enter the number of tries : ");
-                        tries2 = scanner3.nextInt();
+                        tries3 = scanner3.nextInt();
                     }
 
                     System.out.println();
@@ -381,7 +389,7 @@ public class Main {
                     while (crossover3 < 0 || crossover3 > 100) {
                         System.out.println("Error: The pourcentage of crossover must be between 0 and 100:");
                         System.out.println("Enter a pourcentage of crossover: ");
-                        crossover2 = scanner4.nextInt();
+                        crossover3 = scanner4.nextInt();
                     }
                     //print them
                     System.out.println();
@@ -414,17 +422,9 @@ public class Main {
                             //add the new solution to the list of Solution using the refresh method
                             solutions2 = solution.refresh(solutions3, cross);
 
-                            //Notice it
-                            System.out.println();
-                            System.out.println(" - Crossover : ");
-
-                            //print the list of Solution
-                            for (Solution solution3 : solutions3) {
-                                System.out.println(solution3.toString());
-                            }
                             count3++;
 
-                            //Use of the Mutation method
+                        //Use of the Mutation method
                         } else {
 
                             //Mutation
@@ -433,15 +433,7 @@ public class Main {
 
                             //add the new solution to the list of Solution using the refresh method
                             solutions3 = mutation3.refresh(solutions3, final_solution);
-
-                            //Notice it
-                            System.out.println();
-                            System.out.println(" - Mutation : ");
-
-                            //print the list of Solution
-                            for (Solution solution3 : solutions3) {
-                                System.out.println(solution3.toString());
-                            }
+                            
                             count3++;
                         }
 
