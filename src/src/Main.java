@@ -229,11 +229,11 @@ public class Main {
                     System.out.println();
                     System.out.println("Select a number of tries (between 2 and 1000) : ");
 
-                    int tries2 = scanner2.nextInt();
-                    while (tries2 < 2 || tries2 > 1000) {
-                        System.out.println("Error: The number of tries must be between 2 and 1000) :");
-                        System.out.println("Enter the number of tries : ");
-                        tries2 = scanner2.nextInt();
+                        int tries2 = scanner2.nextInt();
+                        while (tries2 < 2 || tries2 > 1000) {
+                            System.out.println("Error: The number of tries must be between 2 and 1000) :");
+                            System.out.println("Enter the number of tries : ");
+                            tries2 = scanner2.nextInt();
                     }
 
                     System.out.println();
@@ -328,6 +328,139 @@ public class Main {
                     System.out.println("##################################################################");
                     System.out.println("#             III - CREATE YOUR OWN SET OF POPULATION            #");
                     System.out.println("##################################################################");
+                    System.out.println("You'll now create your own set of population.");
+                    //ask the user to enter a number of population
+                    System.out.println("Enter a number of population: ");
+                    Scanner scanner3 = new Scanner(System.in);
+                    int population3 = scanner3.nextInt();
+                    Random random3 = new Random();
+                    while (population3 < 2) {
+                        System.out.println("Out of border.");
+                        System.out.println("Enter a number of population (greater than 1): ");
+                        population3 = scanner3.nextInt();
+                    }
+                    //ask the user to enter each decimal number
+                    System.out.println("Enter each decimal number: ");
+                    ArrayList<Solution> solutions3 = new ArrayList<>();
+                    for (int i = 0; i < population3; i++) {
+                        System.out.println("Enter the decimal number " + (i + 1) + " : ");
+                        int decimal = scanner3.nextInt();
+                        for (Solution solution : solutions3) {
+                            while (solution.getDecimal() == decimal) {
+                                System.out.println("Error: This decimal number is already in the list.");
+                                System.out.println("Enter the decimal number " + (i + 1) + " : ");
+                                decimal = scanner3.nextInt();
+                            }
+                        }
+                        Solution solution = new Solution(decimal, "");
+                        solution.setBinary(solution.decimalToBinary(decimal));
+                        solution.fitnessFunction(solution.getDecimal());
+                        solutions3.add(solution);
+                    }
+                    solutions3.sort((o1, o2) -> Integer.compare(Math.abs(o1.getFitnescore()), Math.abs(o2.getFitnescore())));
+                    //print the list of Solution
+
+                    System.out.println("The list of Solution is as follows : ");
+                    for (Solution solution : solutions3) {
+                        System.out.println(solution.toString());
+                    }
+                    System.out.println("Select a number of tries (between 2 and 1000) : ");
+
+                    int tries3 = scanner3.nextInt();
+                    while (tries3 < 2 || tries3 > 1000) {
+                        System.out.println("Error: The number of tries must be between 2 and 1000) :");
+                        System.out.println("Enter the number of tries : ");
+                        tries2 = scanner3.nextInt();
+                    }
+
+                    System.out.println();
+                    Scanner scanner4 = new Scanner(System.in);
+                    //Setting the percentage of crossover and mutation
+                    System.out.println("Now enter a pourcentage of crossover: ");
+                    int crossover3 = scanner4.nextInt();
+                    while (crossover3 < 0 || crossover3 > 100) {
+                        System.out.println("Error: The pourcentage of crossover must be between 0 and 100:");
+                        System.out.println("Enter a pourcentage of crossover: ");
+                        crossover2 = scanner4.nextInt();
+                    }
+                    //print them
+                    System.out.println();
+                    System.out.println("- CrossOver: " + crossover3 + "%  " + "\n" + "- Mutation:  " + (100 - crossover3) + "%");
+                    TimeUnit.SECONDS.sleep(2);
+                    System.out.println();
+
+                    int count3 = 0;
+
+                    //Genetic algorithm with the use of both Crossover and Mutation methods
+                    while (solutions3.get(0).getFitnescore() != 0 && count3 < tries3) {
+                        int randomSelection = random3.nextInt(100) + 1;
+
+                        //Use of the crossover method
+                        if (randomSelection <= crossover3) {
+
+                            //Selection method
+                            ArrayList<Solution> bestsolution = new ArrayList<>();
+                            Solution solu2 = new Solution();
+                            Solution.cpt = 0;
+                            for (int i = 0; i < 2; i++) {
+                                bestsolution.add(solu2.Selection(solutions3));
+                                Solution.cpt++;
+                            }
+
+                            //Crossover
+                            Solution solution = new Solution();
+                            Solution cross = solution.crossover(bestsolution.get(0), bestsolution.get(1));
+
+                            //add the new solution to the list of Solution using the refresh method
+                            solutions2 = solution.refresh(solutions3, cross);
+
+                            //Notice it
+                            System.out.println();
+                            System.out.println(" - Crossover : ");
+
+                            //print the list of Solution
+                            for (Solution solution3 : solutions3) {
+                                System.out.println(solution3.toString());
+                            }
+                            count3++;
+
+                            //Use of the Mutation method
+                        } else {
+
+                            //Mutation
+                            Solution mutation3 = new Solution();
+                            Solution final_solution = mutation3.Mutation(solutions3.get(0));
+
+                            //add the new solution to the list of Solution using the refresh method
+                            solutions3 = mutation3.refresh(solutions3, final_solution);
+
+                            //Notice it
+                            System.out.println();
+                            System.out.println(" - Mutation : ");
+
+                            //print the list of Solution
+                            for (Solution solution3 : solutions3) {
+                                System.out.println(solution3.toString());
+                            }
+                            count3++;
+                        }
+
+                    }
+
+                    System.out.println();
+
+                    if (count3 == tries3 && solutions3.get(0).getFitnescore() != 0) {
+
+                        //The solution is not found
+                        System.out.println("So the best solution found is : " + solutions3.get(0).getDecimal() + ", with a fitness score of: " + solutions3.get(0).getFitnescore() + ", after " + count3 + " tries");
+                    } else {
+
+                        //The solution is found
+                        System.out.println("So the solution found is : " + solutions3.get(0).getDecimal() + ", after " + count3 + " tries");
+                    }
+
+
+
                     break;
 
                 case 4:
