@@ -1,1 +1,5 @@
 # ALGO2
+Marius CHEVAILLER
+Nathan SIMOES
+Constance WALUSIAK
+Louise LAVERGNE

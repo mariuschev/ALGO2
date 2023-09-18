@@ -160,7 +160,7 @@ public class Main {
                     }
 
                     System.out.println();
-                    System.out.println("After " + count + " tries, the las population is : ");
+                    System.out.println("After " + count + " tries, the last population is : ");
                     System.out.println();
 
                     for (Solution solution : solutions) {
@@ -437,6 +437,14 @@ public class Main {
                             count3++;
                         }
 
+                    }
+
+                    System.out.println();
+                    System.out.println("After " + count3 + " tries, the last population is : ");
+                    System.out.println();
+
+                    for (Solution solution : solutions3) {
+                        System.out.println(solution.toString());
                     }
 
                     System.out.println();
